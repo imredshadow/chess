@@ -104,7 +104,7 @@ public class Board extends JPanel implements MouseListener, MouseMotionListener 
 	//it's up to you how you wish to arrange your pieces.
     void initializePieces() {
     	
-    	// board[0][0].put(new Piece(true, path+ RESOURCES_WKING_PNG));
+    	board[7][0].put(new Piece(true, RESOURCES_WROOK_PNG));
         
 
     }
