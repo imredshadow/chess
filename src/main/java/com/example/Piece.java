@@ -64,12 +64,14 @@ public class Piece {
         // b.getSquareArray() //gives the 2d board we made earlier
         // you are at coordinate start.getRow() start.getCol()
         // so check to see if your square is on the board and is not occupied by another piece. 
+        ArrayList<Square> moves = new ArrayList<>();
         if(start.getCol()<7) {
             Square right = b.getSquareArray()[start.getRow()][start.getCol()+1];
-            if(right.getOccupyingPiece().getColor()!= color){
+            moves.add(right);
+            if(right.isOccupied() && right.getOccupyingPiece().getColor()!= color){
                 //some code
             }
         }
-    	return null;
+    	return moves;
     }
 }
