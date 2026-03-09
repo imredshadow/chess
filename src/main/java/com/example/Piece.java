@@ -65,13 +65,64 @@ public class Piece {
         // you are at coordinate start.getRow() start.getCol()
         // so check to see if your square is on the board and is not occupied by another piece. 
         ArrayList<Square> moves = new ArrayList<>();
-        if(start.getCol()<7) {
-            Square right = b.getSquareArray()[start.getRow()][start.getCol()+1];
-            moves.add(right);
-            if(right.isOccupied() && right.getOccupyingPiece().getColor()!= color){
-                //some code
+
+        //loop for each direction we want to go in
+        //right
+        for(int col = start.getCol()+1; col<=7; col++){
+            Square right = b.getSquareArray()[start.getRow()][col];
+            if(!right.isOccupied() || right.getOccupyingPiece().getColor()!= color){
+                
+                moves.add(right);
+                if(right.isOccupied()){
+                    break;
+                }
+            }
+            else{
+                break;
             }
         }
+        
+        //left
+        for(int col = start.getCol()-1; col>=0; col--){
+            Square left = b.getSquareArray()[start.getRow()][col];
+            if(!left.isOccupied() || left.getOccupyingPiece().getColor()!= color){
+                moves.add(left);
+                if(left.isOccupied()){
+                    break;
+                }
+            }
+            else{
+                break;
+            }
+        }
+
+        //top
+        for(int row = start.getRow()+1; row<=7; row++){
+            Square up = b.getSquareArray()[row][start.getCol()];
+            if(!up.isOccupied() || up.getOccupyingPiece().getColor()!= color){
+                moves.add(up);
+                if(up.isOccupied()){
+                    break;
+                }
+            }
+            else{
+                break;
+            }
+        }
+
+        for(int row = start.getRow()-1; row>=0; row--){
+            Square down = b.getSquareArray()[row][start.getCol()];
+            if(!down.isOccupied() || down.getOccupyingPiece().getColor()!= color){
+                moves.add(down);
+                if(down.isOccupied()){
+                    break;
+                }
+            }
+            else{
+                break;
+            }
+        }
+
     	return moves;
     }
 }
