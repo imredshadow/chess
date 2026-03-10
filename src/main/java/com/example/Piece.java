@@ -50,7 +50,45 @@ public class Piece {
     //return a list of every square that is "controlled" by this piece. A square is controlled
     //if the piece capture into it legally.
     public ArrayList<Square> getControlledSquares(Square[][] board, Square start) {
-        return null;
+        ArrayList<Square> controlled = new ArrayList<>();
+
+        //right
+        for (int col = start.getCol() + 1; col <= 7; col++){
+            Square right = board[start.getRow()][col];
+            controlled.add(right)
+            if(right.isOccupied()){
+                break;
+            }
+        }
+
+        //left
+        for (int col = start.getCol() - 1; col >= 0; col--){
+            Square left = board[start.getRow()][col];
+            controlled.add(left)
+            if(left.isOccupied()){
+                break;
+            }
+        }
+
+        //up
+        for (int row = start.getRow() + 1; row <= 7; row++){
+            Square up = board[row][start.getCol()];
+            controlled.add(up)
+            if(up.isOccupied()){
+                break;
+            }
+        }
+
+        //down
+        for (int row = start.getRow() - 1; row >= 0; row--){
+            Square down = board[row][start.getCol()];
+            controlled.add(down)
+            if(down.isOccupied()){
+                break;
+            }
+        }
+
+        return controlled;
     }
     
 
