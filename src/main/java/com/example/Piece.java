@@ -49,13 +49,16 @@ public class Piece {
     // TO BE IMPLEMENTED!
     //return a list of every square that is "controlled" by this piece. A square is controlled
     //if the piece capture into it legally.
+
+    //precondition: the board already has to be initialized
+    //postcondition: returns the arraylist called "controlled" where it shows every legal capture
     public ArrayList<Square> getControlledSquares(Square[][] board, Square start) {
         ArrayList<Square> controlled = new ArrayList<>();
 
         //right
         for (int col = start.getCol() + 1; col <= 7; col++){
             Square right = board[start.getRow()][col];
-            controlled.add(right)
+            controlled.add(right);
             if(right.isOccupied()){
                 break;
             }
@@ -64,7 +67,7 @@ public class Piece {
         //left
         for (int col = start.getCol() - 1; col >= 0; col--){
             Square left = board[start.getRow()][col];
-            controlled.add(left)
+            controlled.add(left);
             if(left.isOccupied()){
                 break;
             }
@@ -73,7 +76,7 @@ public class Piece {
         //up
         for (int row = start.getRow() + 1; row <= 7; row++){
             Square up = board[row][start.getCol()];
-            controlled.add(up)
+            controlled.add(up);
             if(up.isOccupied()){
                 break;
             }
@@ -82,7 +85,7 @@ public class Piece {
         //down
         for (int row = start.getRow() - 1; row >= 0; row--){
             Square down = board[row][start.getCol()];
-            controlled.add(down)
+            controlled.add(down);
             if(down.isOccupied()){
                 break;
             }
@@ -98,6 +101,9 @@ public class Piece {
     //returns an arraylist of squares which are legal to move to
     //please note that your piece must have some sort of logic. Just being able to move to every square on the board is not
     //going to score any points.
+
+    //precondition: must have a board object and that board must be initialized
+    //postcondition: returns an arraylist called "moves" where it lists all the empty squares the rook can move into
     public ArrayList<Square> getLegalMoves(Board b, Square start){
         // b.getSquareArray() //gives the 2d board we made earlier
         // you are at coordinate start.getRow() start.getCol()
