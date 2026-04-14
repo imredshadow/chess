@@ -1,3 +1,7 @@
+//Name: Jian Acol
+//PD: 7
+//Description: This is a rook, which moves all the way up and down, and left and right.
+
 package com.example;
 import java.awt.Graphics;
 import java.awt.Image;
@@ -12,17 +16,9 @@ import javax.imageio.ImageIO;
 
 //you will need to implement two functions in this file.
 public class Rook extends Piece {
-    private final boolean color;
-    private BufferedImage img;
     
     public Rook(boolean isWhite, String img_file) {  
-        try {
-            if (this.img == null) {
-                this.img = ImageIO.read(new File(System.getProperty("user.dir")+img_file));
-            }
-          } catch (IOException e) {
-            System.out.println("File not found: " + e.getMessage());
-          }
+        super(isWhite, img_file);
     }
     
     
@@ -97,7 +93,7 @@ public class Rook extends Piece {
         //right
         for(int col = start.getCol()+1; col<=7; col++){
             Square right = b.getSquareArray()[start.getRow()][col];
-            if(!right.isOccupied() || right.getOccupyingPiece().getColor()!= color){
+            if(!right.isOccupied() || right.getOccupyingPiece().getColor()!= getColor()){
                 
                 moves.add(right);
                 if(right.isOccupied()){
@@ -112,7 +108,7 @@ public class Rook extends Piece {
         //left
         for(int col = start.getCol()-1; col>=0; col--){
             Square left = b.getSquareArray()[start.getRow()][col];
-            if(!left.isOccupied() || left.getOccupyingPiece().getColor()!= color){
+            if(!left.isOccupied() || left.getOccupyingPiece().getColor()!= getColor()){
                 moves.add(left);
                 if(left.isOccupied()){
                     break;
@@ -126,7 +122,7 @@ public class Rook extends Piece {
         //top
         for(int row = start.getRow()+1; row<=7; row++){
             Square up = b.getSquareArray()[row][start.getCol()];
-            if(!up.isOccupied() || up.getOccupyingPiece().getColor()!= color){
+            if(!up.isOccupied() || up.getOccupyingPiece().getColor()!= getColor()){
                 moves.add(up);
                 if(up.isOccupied()){
                     break;
@@ -139,7 +135,7 @@ public class Rook extends Piece {
 
         for(int row = start.getRow()-1; row>=0; row--){
             Square down = b.getSquareArray()[row][start.getCol()];
-            if(!down.isOccupied() || down.getOccupyingPiece().getColor()!= color){
+            if(!down.isOccupied() || down.getOccupyingPiece().getColor()!= getColor()){
                 moves.add(down);
                 if(down.isOccupied()){
                     break;
