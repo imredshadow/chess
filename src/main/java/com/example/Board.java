@@ -6,16 +6,15 @@ import java.awt.Graphics;
 import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.Point;
+import java.awt.Toolkit;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.List;
 import java.net.URL;
-import java.awt.Toolkit;
+import java.util.ArrayList;
 
-import javax.swing.*;
+import javax.swing.BorderFactory;
+import javax.swing.JPanel;
 
 //You will be implmenting a part of a function and a whole function in this document. Please follow the directions for the 
 //suggested order of completion that should make testing easier.
@@ -105,7 +104,9 @@ public class Board extends JPanel implements MouseListener, MouseMotionListener 
     void initializePieces() {
     	
     	board[7][0].put(new Rook(true, RESOURCES_WROOK_PNG));
-        board[0][0].put(new Rook(false, RESOURCES_WROOK_PNG));
+        board[0][0].put(new Rook(false, RESOURCES_BROOK_PNG));
+        board[7][4].put(new King(true, RESOURCES_WKING_PNG));
+        board[0][4].put(new King(false, RESOURCES_BKING_PNG));
 
     }
 
@@ -124,6 +125,7 @@ public class Board extends JPanel implements MouseListener, MouseMotionListener 
     public Piece getCurrPiece() {
         return this.currPiece;
     }
+
 
     @Override
     public void paintComponent(Graphics g) {
@@ -178,6 +180,33 @@ public class Board extends JPanel implements MouseListener, MouseMotionListener 
         repaint();
     }
 
+    private boolean isInCheck(boolean kingColor){
+        int kingRow = -1;
+        int kingCol = -1;
+
+       
+        for (int row = 0; row < 8; row++){
+            for (int col = 0; col < 8; col++){
+                //find all enemy piece (have .getColor()!= kingColor)
+                Piece p =  board[row][col].getOccupyingPiece();
+        
+        // Check if the square is occupied and the piece color is different
+                if (p != null && p.getColor() != kingColor) {
+                
+                        for (Square controlled: p.getControlledSquares(board, board[row][col])){
+                            if(controlled){
+                                return true;
+                            }
+                        }
+                    
+                }
+            }
+        }
+
+       
+		return true;
+    }
+
     //TO BE IMPLEMENTED!
     //should move the piece to the desired location only if this is a legal move.
     //use the pieces "legal move" function to determine if this move is legal, then complete it by
@@ -197,10 +226,19 @@ public class Board extends JPanel implements MouseListener, MouseMotionListener 
         Square endSquare = (Square) this.getComponentAt(new Point(e.getX(), e.getY()));
         
         //using currPiece
-        if(fromMoveSquare!=null){
+        if(fromMoveSquare!=null && currPiece!= null){
             if(currPiece!=null && currPiece.getLegalMoves(this, fromMoveSquare).contains(endSquare)){
+                Piece captured = endSquare.getOccupyingPiece();
                 endSquare.put(currPiece);
                 fromMoveSquare.removePiece();
+
+                if(isInCheck(whiteTurn)){
+                    fromMoveSquare.put(currPiece);
+                    endSquare.put(captured);
+                }
+                else {
+                    whiteTurn = !whiteTurn;
+                }
             }
         }
        

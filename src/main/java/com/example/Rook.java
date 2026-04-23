@@ -21,7 +21,12 @@ public class Rook extends Piece {
         super(isWhite, img_file);
     }
     
-    
+    public String toString() {
+        if (getColor())
+            return "I am the rook, and I am white";
+        else
+            return "I am the rook, and I am black";
+    }
 
     
 
